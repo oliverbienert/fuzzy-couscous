@@ -37,6 +37,12 @@ def remove_poetry(
         is_flag=True,
         help="Create an environment using virtualenv",
     ),
+    venv_path: str = typer.Option(
+        "venv",
+        "-v",
+        "--virtual-path",
+        help="Create virtual environment at given path"
+    ),
     pyproject_file: Path = typer.Argument(Path("pyproject.toml"), hidden=True),
     project_name: str = typer.Argument(
         "", callback=get_current_dir_as_project_name, hidden=True
@@ -106,7 +112,7 @@ def remove_poetry(
         transient=True,
     ) as progress:
         progress.add_task(description="Creating virtualenv... :boom:", total=None)
-        new_virtualenv()
+        new_virtualenv(venv_path)
 
     with Progress(
         SpinnerColumn(),

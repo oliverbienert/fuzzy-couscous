@@ -16,10 +16,17 @@ __all__ = ["work"]
 
 
 def _get_venv_directory() -> str | None:
-    patterns = ["venv", ".venv"]
+    p = os.environ.get('VIRTUAL_ENV')
+    if p:
+        return p
+    current_dir = get_current_dir_as_project_name()
+    print(current_dir)
+    patterns = [f"~/.virtualenvs/{current_dir}", "venv", ".venv"]
     for p in patterns:
-        path = Path(p)
+        path = Path(p).expanduser()
         if path.exists() and (path / "bin/python").exists():
+            p = str(path)
+            print(p)
             return p
 
 
