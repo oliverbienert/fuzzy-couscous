@@ -59,8 +59,9 @@ t = { cmd = "tailwindcss -i {{ project_name }}/static/css/input.css -o {{ projec
 rm = { cmd = "cuzzy rm-migrations {{ project_name }}", help = "Delete all migrations files" }
 RD = ["rd", "rm", "mk", "m"] # Reset your database, delete all migrations files, make news migrations for all apps, apply all migrations
 
-[tool.cuzzy]
-work = ["poe r", "poe t"]
+[tool.cuzzy.work]
+server = "poe r"
+tailwind = "poe t"
 
 # "https://github.com/charliermarsh/ruff"
 [tool.ruff]
